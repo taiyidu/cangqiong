@@ -67,8 +67,6 @@ public class EmployeeController {
 
     /**
      * 退出
-     *
-     * @return
      */
     @ApiOperation("员工退出")
     @PostMapping("/logout")
@@ -105,6 +103,26 @@ public class EmployeeController {
     public Result startOrStop(@PathVariable Integer status,Long id){
         log.info("启用禁用员工参数{}{}",id,status);
         employeeService.startOrStop(status,id);
+        return Result.success();
+    }
+    /**
+     * 查询回显
+     */
+    @ApiOperation("查询回显")
+    @GetMapping("/{id}")
+    public Result<Employee> getById(@PathVariable Long id){
+        log.info("查询回显参数{}",id);
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+    /**
+     * 编辑员工信息
+     */
+    @ApiOperation("编辑员工信息")
+    @PutMapping
+    public Result update(@RequestBody EmployeeDTO employeeDTO){
+        log.info("编辑员工信息{}",employeeDTO);
+        employeeService.update(employeeDTO);
         return Result.success();
     }
 }

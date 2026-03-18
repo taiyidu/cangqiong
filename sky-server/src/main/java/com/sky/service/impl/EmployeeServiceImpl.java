@@ -119,4 +119,25 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .build();
         employeeMapper.update(employee);
     }
+
+    /**
+     * 根据id查询员工
+     */
+    @Override
+    public Employee getById(Long id) {
+        Employee employee = employeeMapper.getById(id);
+        employee.setPassword("****");//进一步加强安全性（密码是md5加密的，根本就不能逆向解出来）
+        return employee;
+    }
+    /**
+     * 编辑员工信息
+     */
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO, employee);
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());//这里使用了ThreadLocal在mvc的配置类中埋的数据
+        employeeMapper.update(employee);
+    }
 }
