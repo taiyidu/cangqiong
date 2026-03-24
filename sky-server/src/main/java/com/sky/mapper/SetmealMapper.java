@@ -7,6 +7,7 @@ import com.sky.entity.Setmeal;
 import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface SetmealMapper {
@@ -21,4 +22,9 @@ public interface SetmealMapper {
 
     @AutoFill(value=OperationType.INSERT)
     void save(Setmeal setmeal);
+
+    void delete(Long id);
+
+    @Update("update setmeal set status = #{status} where id = #{id}")
+    void updateStatusById(Long id, Integer status);
 }

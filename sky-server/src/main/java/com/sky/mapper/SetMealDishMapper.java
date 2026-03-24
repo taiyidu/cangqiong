@@ -1,5 +1,9 @@
 package com.sky.mapper;
 
+import com.github.pagehelper.Page;
+import com.sky.dto.SetmealPageQueryDTO;
+import com.sky.entity.Employee;
+import com.sky.entity.Setmeal;
 import com.sky.entity.SetmealDish;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -19,4 +23,8 @@ public interface SetMealDishMapper {
      * 插入套餐和菜品的关联关系
      */
     void save(SetmealDish setmealDish);
+
+    Page<Setmeal> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+
+    void delete(Long id);
 }

@@ -6,11 +6,29 @@
         insert into setmeal_dish (setmeal_id, dish_id, name,price,copies) values
             (#{setmealId},#{dishId},#{name},#{price},#{copies})
     </insert>
+    <delete id="delete">
+        delete from setmeal_dish where setmeal_id = #{id}
+    </delete>
 
     <select id="getSetmealIdsByDishIds" resultType="java.lang.Long">
         select setmeal_id from setmeal_dish where dish_id in
         <foreach collection="dishIds" item="dishId" separator="," open="(" close=")">
             #{dishId}
         </foreach>
+    </select>
+    <select id="pageQuery" resultType="com.sky.entity.Setmeal">
+        select s.*,c.name from setmeal s left join category c on s.category_id = c.id
+        <where>
+            <if test="name != null and name != ''">
+                and s.name like concat('%', #{name}, '%')
+            </if>
+            <if test="categoryId != null">
+                and s.category_id=#{categoryId}
+            </if>
+            <if test="status != null">
+                and s.status = #{status}
+            </if>
+        </where>
+        order by s.create_time desc
     </select>
 </mapper>
