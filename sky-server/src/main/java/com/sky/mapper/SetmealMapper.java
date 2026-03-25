@@ -5,6 +5,7 @@ import com.sky.constant.AutoFillConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.entity.Setmeal;
 import com.sky.enumeration.OperationType;
+import com.sky.vo.SetmealVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -27,4 +28,10 @@ public interface SetmealMapper {
 
     @Update("update setmeal set status = #{status} where id = #{id}")
     void updateStatusById(Long id, Integer status);
+
+    @Select("select * from setmeal where id = #{id}")
+    Setmeal getById(Integer id);
+
+    @AutoFill(value = OperationType.UPDATE)
+    void update(Setmeal setmeal);
 }

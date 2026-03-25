@@ -27,4 +27,7 @@ public interface SetMealDishMapper {
     Page<Setmeal> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
 
     void delete(Long id);
+
+    @Select("select * from setmeal_dish where setmeal_id = #{id}")
+    List<SetmealDish> getSetmealDishBySetmealId(Integer id);
 }

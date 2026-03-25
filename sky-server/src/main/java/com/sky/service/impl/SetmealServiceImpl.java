@@ -11,6 +11,7 @@ import com.sky.mapper.SetMealDishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.SetmealService;
+import com.sky.vo.SetmealVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +75,30 @@ public class SetmealServiceImpl implements SetmealService{
     @Override
     public void updateStatusById(Long id, Integer status) {
         setmealMapper.updateStatusById(id,status);
+    }
+
+    @Override
+    public SetmealVO getById(Integer id) {
+        Setmeal setmeal = setmealMapper.getById(id);
+        SetmealVO setmealVO = new SetmealVO();
+        BeanUtils.copyProperties(setmeal,setmealVO);
+        List<SetmealDish> setmealDishList = setMealDishMapper.getSetmealDishBySetmealId(id);
+//        for (SetmealDish setmealDish : setmealDishList) {
+//
+//        }
+        setmealVO.setSetmealDishes(setmealDishList);
+        return setmealVO;
+    }
+
+    @Override
+    public void update(SetmealDTO setmealDTO) {
+        Setmeal setmeal = new Setmeal();
+        BeanUtils.copyProperties(setmealDTO,setmeal);
+        setmealMapper.update(setmeal);
+        setMealDishMapper.delete(setmealDTO.getId());
+        for (SetmealDish setmealDish : setmealDTO.getSetmealDishes()) {
+            setmealDish.setSetmealId(setmealDTO.getId());//设置套餐id
+            setMealDishMapper.save(setmealDish);
+        }
     }
 }
