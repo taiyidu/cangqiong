@@ -22,6 +22,7 @@ import java.util.Map;
 
 /**
  * Http工具类
+ * 作用：用java代码发送http请求并接受，这里仅有get post的请求类型 对应的是用户端的请求类型
  */
 public class HttpClientUtil {
 
@@ -29,9 +30,9 @@ public class HttpClientUtil {
 
     /**
      * 发送GET方式请求
-     * @param url
-     * @param paramMap
-     * @return
+     * @param url 传入的url地址
+     * @param paramMap 传入参数的键值对
+     * @return 响应结果
      */
     public static String doGet(String url,Map<String,String> paramMap){
         // 创建Httpclient对象
@@ -75,9 +76,9 @@ public class HttpClientUtil {
 
     /**
      * 发送POST方式请求
-     * @param url
-     * @param paramMap
-     * @return
+     * @param url 传入的url地址
+     * @param paramMap 传入的参数
+     * @return 强转成字符串的对象
      * @throws IOException
      */
     public static String doPost(String url, Map<String, String> paramMap) throws IOException {
