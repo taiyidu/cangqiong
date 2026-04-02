@@ -142,6 +142,7 @@ public class DishServiceImpl implements DishService {
         }
         return dishVOList;
     }
+
     /**
      * 条件查询菜品和口味
      * @param dish
@@ -164,5 +165,15 @@ public class DishServiceImpl implements DishService {
         }
 
         return dishVOList;
+    }
+
+    /**
+     * 修改菜品状态
+     * @param id 菜品Id
+     * @param status 菜品状态
+     */
+    @Override
+    public void updateStatusById(Long id, Integer status) {
+        dishMapper.updateStatusById(id,status);
     }
 }
