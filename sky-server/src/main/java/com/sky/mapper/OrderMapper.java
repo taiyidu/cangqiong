@@ -3,6 +3,11 @@ package com.sky.mapper;
 import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Mapper
 public interface OrderMapper {
@@ -21,4 +26,16 @@ public interface OrderMapper {
      */
     void update(Orders orders);
 
+    /**
+     * 修改订单状态
+     * @param orderStatus
+     * @param orderPaidStatus
+     * @param check_out_time
+     * @param id
+     */
+    @Update("update orders set status = #{orderStatus},pay_status = #{orderPaidStatus} ,checkout_time = #{check_out_time} where id = #{id}")
+    void updateStatus(Integer orderStatus, Integer orderPaidStatus, LocalDateTime check_out_time, Long id);
+
+    @Select("select * from orders where status = #{Status} and order_time < #{orderTime}")
+    List<Orders> getStatusAndOrderTimeLT(Integer Status, LocalDateTime orderTime);
 }
