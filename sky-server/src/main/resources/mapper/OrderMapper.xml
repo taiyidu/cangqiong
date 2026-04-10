@@ -41,4 +41,33 @@
         </set>
         where id = #{id}
     </update>
+    <select id="historyOrders" resultType="com.sky.entity.Orders">
+        select * from orders
+        <where>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <select id="conditionSearch" resultType="com.sky.entity.Orders">
+        select * from orders
+        <where>
+            <if test="phone != null and phone != ''">
+                and phone like '%${phone}%'
+            </if>
+            <if test="number != null and number != ''">
+                and number like '%${number}%'
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="beginTime != null">
+                and order_time &gt;= #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and order_time  &lt;= #{endTime}
+            </if>
+        </where>
+    </select>
 </mapper>
