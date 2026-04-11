@@ -10,7 +10,9 @@ import org.apache.ibatis.annotations.Update;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -52,4 +54,11 @@ public interface OrderMapper {
 
     @Select("select count(*) from orders where status = #{status}")
     Integer getByStatus(Integer status);
+
+    /**
+     * 根据状态统计营业额
+     * @param map
+     * @return
+     */
+    Double sumByMap(Map map);
 }
